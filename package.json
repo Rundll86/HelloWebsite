@@ -1,8 +1,7 @@
 {
 	"name": "HelloWebsite",
 	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"description": "企业级Hello World输出设备 宣传网站。",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -11,7 +10,7 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC",
+	"license": "MIT",
 	"packageManager": "pnpm@10.28.2",
 	"dependencies": {
 		"nine-9": "^1.14.1"

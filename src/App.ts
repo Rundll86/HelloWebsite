@@ -1,5 +1,4 @@
-import { createComponent, tree } from "nine-9";
+import { createComponent } from "nine-9";
+import Page from "./components/Page.js";
 
-export default createComponent({}, () => {
-	return tree("div");
-});
+export default createComponent({}, () => Page());
