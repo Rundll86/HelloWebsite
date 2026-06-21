@@ -3,6 +3,11 @@ import {
 	styleSet,
 	tree,
 } from "nine-9";
+import SectionCard from "./SectionCard.js";
+import TableRow from "./TableRow.js";
+import PipeStepItem from "./PipeStepItem.js";
+import PipeStepItem2 from "./PipeStepItem2.js";
+import arch from "../arch.txt?raw";
 
 // ========== 全局样式 ==========
 const pageStyle = styleSet("body")
@@ -238,26 +243,26 @@ export default createComponent(
 					tree("div")
 						.class("card-grid")
 						.append(
-							sectionCard(
-								"🔒",
-								"五九可靠性",
-								"年停机时间 < 5 分钟，内置恶意打印检测、全角字符注入防御、缓冲区溢出保护"
-							),
-							sectionCard(
-								"🖥️",
-								"多设备输出",
-								"支持 Console / File / Network / Cloud 四种输出设备，设备支持热插拔"
-							),
-							sectionCard(
-								"🌐",
-								"跨语言转译",
-								"将 Hello World 转译为 JavaScript / Java / C++ / Rust / WASM 五种目标语言"
-							),
-							sectionCard(
-								"📊",
-								"全栈可观测",
-								"结构化日志 + Prometheus 指标 + 分布式追踪 + 云端日志上传"
-							)
+							SectionCard({
+								icon: "🔒",
+								title: "五九可靠性",
+								desc: "年停机时间 < 5 分钟，内置恶意打印检测、全角字符注入防御、缓冲区溢出保护"
+							}),
+							SectionCard({
+								icon: "🖥️",
+								title: "多设备输出",
+								desc: "支持 Console / File / Network / Cloud 四种输出设备，设备支持热插拔"
+							}),
+							SectionCard({
+								icon: "🌐",
+								title: "跨语言转译",
+								desc: "将 Hello World 转译为 JavaScript / Java / C++ / Rust / WASM 五种目标语言"
+							}),
+							SectionCard({
+								icon: "📊",
+								title: "全栈可观测",
+								desc: "结构化日志 + Prometheus 指标 + 分布式追踪 + 云端日志上传"
+							})
 						)
 				),
 
@@ -273,39 +278,7 @@ export default createComponent(
 						),
 					tree("pre")
 						.class("arch-box")
-						.append(`┌─────────────────────────────────────────────────────────────┐
-│                      CLI 控制层                              │
-│                  (cli.py / main.py)                         │
-├─────────────────────────────────────────────────────────────┤
-│                     处理层 (Processing Layer)                 │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌───────────────┐  │
-│  │Output    │ │Renderer  │ │Scheduler │ │Security       │  │
-│  │Stream    │ │          │ │(Cron)    │ │Monitor        │  │
-│  └──────────┘ └──────────┘ └──────────┘ └───────────────┘  │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │              IR Transpiler (多语言中间表示)            │   │
-│  └──────────────────────────────────────────────────────┘   │
-├─────────────────────────────────────────────────────────────┤
-│                   转接层 (Adapter Layer)                      │
-│  ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐    │
-│  │Buffer Stack  │ │Stream Adapter│ │Protocol Adapter  │    │
-│  └──────────────┘ └──────────────┘ └──────────────────┘    │
-├─────────────────────────────────────────────────────────────┤
-│                    设备层 (Device Layer)                      │
-│  ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐    │
-│  │Character     │ │Device        │ │Device Interface  │    │
-│  │Reader        │ │Manager       │ │(抽象设备接口)     │    │
-│  └──────────────┘ └──────────────┘ └──────────────────┘    │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐  │
-│  │Console   │ │File      │ │Network   │ │Cloud         │  │
-│  │Device    │ │Device    │ │Device    │ │Device        │  │
-│  └──────────┘ └──────────┘ └──────────┘ └──────────────┘  │
-├─────────────────────────────────────────────────────────────┤
-│                    云服务层 (Cloud Layer)                     │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │              Log Uploader (日志实时上云)               │   │
-│  └──────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘`)
+						.append(arch)
 				),
 
 			// ---- 模块职责矩阵 ----
@@ -325,20 +298,20 @@ export default createComponent(
 										tree("th").append("职责"),
 										tree("th").append("设计模式")
 									),
-									tableRow("CharacterReader", "设备层", "字符序列读取/解析", "—"),
-									tableRow("DeviceManager", "设备层", "设备注册/发现/生命周期", "工厂+注册表"),
-									tableRow("ConsoleDevice", "设备层", "控制台输出", "抽象工厂"),
-									tableRow("FileDevice", "设备层", "文件输出", "抽象工厂"),
-									tableRow("BufferStack", "转接层", "字符缓冲区栈 (双端队列)", "—"),
-									tableRow("StreamAdapter", "转接层", "编码/流转换", "策略模式"),
-									tableRow("ProtocolAdapter", "转接层", "IR-设备协议转换", "适配器"),
-									tableRow("OutputStream", "处理层", "输出字符流调度", "观察者模式"),
-									tableRow("Renderer", "处理层", "字符渲染引擎", "—"),
-									tableRow("Scheduler", "处理层", "Cron 定时调度", "—"),
-									tableRow("SecurityMonitor", "处理层", "恶意打印检测", "责任链模式"),
-									tableRow("IRTranspiler", "处理层", "多语言 IR 转换", "策略模式"),
-									tableRow("LogUploader", "云服务层", "日志云端存储", "—"),
-									tableRow("CLI", "控制层", "命令行接口", "命令模式")
+									TableRow({ module: "CharacterReader", layer: "设备层", duty: "字符序列读取/解析", pattern: "—" }),
+									TableRow({ module: "DeviceManager", layer: "设备层", duty: "设备注册/发现/生命周期", pattern: "工厂+注册表" }),
+									TableRow({ module: "ConsoleDevice", layer: "设备层", duty: "控制台输出", pattern: "抽象工厂" }),
+									TableRow({ module: "FileDevice", layer: "设备层", duty: "文件输出", pattern: "抽象工厂" }),
+									TableRow({ module: "BufferStack", layer: "转接层", duty: "字符缓冲区栈 (双端队列)", pattern: "—" }),
+									TableRow({ module: "StreamAdapter", layer: "转接层", duty: "编码/流转换", pattern: "策略模式" }),
+									TableRow({ module: "ProtocolAdapter", layer: "转接层", duty: "IR-设备协议转换", pattern: "适配器" }),
+									TableRow({ module: "OutputStream", layer: "处理层", duty: "输出字符流调度", pattern: "观察者模式" }),
+									TableRow({ module: "Renderer", layer: "处理层", duty: "字符渲染引擎", pattern: "—" }),
+									TableRow({ module: "Scheduler", layer: "处理层", duty: "Cron 定时调度", pattern: "—" }),
+									TableRow({ module: "SecurityMonitor", layer: "处理层", duty: "恶意打印检测", pattern: "责任链模式" }),
+									TableRow({ module: "IRTranspiler", layer: "处理层", duty: "多语言 IR 转换", pattern: "策略模式" }),
+									TableRow({ module: "LogUploader", layer: "云服务层", duty: "日志云端存储", pattern: "—" }),
+									TableRow({ module: "CLI", layer: "控制层", duty: "命令行接口", pattern: "命令模式" })
 								)
 						)
 				),
@@ -354,24 +327,24 @@ export default createComponent(
 					tree("div")
 						.class("pipe")
 						.append(
-							pipeStepItem("1", "Lint & Format\nRuff + Black + MyPy"),
-							pipeStepItem("2", "Unit Tests\npytest ≥ 90%"),
-							pipeStepItem("3", "Security\nBandit + Trivy"),
-							pipeStepItem("4", "Build\nDocker Multi-stage"),
-							pipeStepItem("5", "Integration\ndocker-compose"),
-							pipeStepItem("6", "IR Validation\n5 语言目标校验"),
-							pipeStepItem("7", "Push Artifacts\nRegistry + PyPI")
+							PipeStepItem({ num: "1", label: "Lint & Format\nRuff + Black + MyPy" }),
+							PipeStepItem({ num: "2", label: "Unit Tests\npytest ≥ 90%" }),
+							PipeStepItem({ num: "3", label: "Security\nBandit + Trivy" }),
+							PipeStepItem({ num: "4", label: "Build\nDocker Multi-stage" }),
+							PipeStepItem({ num: "5", label: "Integration\ndocker-compose" }),
+							PipeStepItem({ num: "6", label: "IR Validation\n5 语言目标校验" }),
+							PipeStepItem({ num: "7", label: "Push Artifacts\nRegistry + PyPI" })
 						),
 					tree("div").use(styleSet().marginTop("24px")),
 					tree("div")
 						.class("pipe")
 						.append(
-							pipeStepItem2("Dev Deploy", "#58a6ff", "自动"),
-							pipeStepItem2("Staging", "#d2a8ff", "自动"),
-							pipeStepItem2("Canary 10%", "#ffa657", "自动"),
-							pipeStepItem2("Smoke Test", "#ff7b72", "自动"),
-							pipeStepItem2("Full Rollout", "#3fb950", "手动审批"),
-							pipeStepItem2("Post-deploy", "#8b949e", "自动")
+							PipeStepItem2({ label: "Dev Deploy", color: "#58a6ff", type: "自动" }),
+							PipeStepItem2({ label: "Staging", color: "#d2a8ff", type: "自动" }),
+							PipeStepItem2({ label: "Canary 10%", color: "#ffa657", type: "自动" }),
+							PipeStepItem2({ label: "Smoke Test", color: "#ff7b72", type: "自动" }),
+							PipeStepItem2({ label: "Full Rollout", color: "#3fb950", type: "手动审批" }),
+							PipeStepItem2({ label: "Post-deploy", color: "#8b949e", type: "自动" })
 						),
 					tree("p")
 						.use(styleSet().marginTop("8px").fontSize("0.8em").color("#484f58"))
@@ -403,46 +376,4 @@ export default createComponent(
 	}
 );
 
-// ========== 辅助函数 ==========
-function sectionCard(icon: string, title: string, desc: string) {
-	return tree("div")
-		.class("card")
-		.append(
-			tree("div").class("card-icon").append(icon),
-			tree("h3").class("card-title").append(title),
-			tree("p").class("card-text").append(desc)
-		);
-}
 
-function tableRow(
-	module: string,
-	layer: string,
-	duty: string,
-	pattern: string
-) {
-	return tree("tr").append(
-		tree("td").use(styleSet().color("#58a6ff").fontWeight("600")).append(module),
-		tree("td").append(layer),
-		tree("td").append(duty),
-		tree("td").use(styleSet().color("#8b949e").fontSize("0.82em")).append(pattern)
-	);
-}
-
-function pipeStepItem(num: string, label: string) {
-	return tree("div")
-		.class("pipe-step")
-		.append(tree("span").class("pipe-num").append(num), tree("span").append(label));
-}
-
-function pipeStepItem2(label: string, color: string, type: string) {
-	return tree("div")
-		.class("pipe-step")
-		.append(
-			tree("span")
-				.use(styleSet().display("block").fontWeight("600").color(color))
-				.append(label),
-			tree("span")
-				.use(styleSet().display("block").fontSize("0.75em").marginTop("4px"))
-				.append(type)
-		);
-}
