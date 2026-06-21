@@ -6,7 +6,10 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"type-check": "tsc --noEmit",
+		"lint": "eslint src",
+		"lint:fix": "eslint src --fix"
 	},
 	"keywords": [],
 	"author": "",
@@ -16,6 +19,10 @@
 		"nine-9": "^1.14.1"
 	},
 	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"eslint": "^10.5.0",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.61.1",
 		"vite": "^8.0.16"
 	}
 }

@@ -6,6 +6,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>HelloWebsite</title>
 	<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+	<style>
+		@media (max-width: 768px) {
+			.hero-title { font-size: 2em !important; }
+			.hero-tagline { font-size: 1em !important; }
+			.hero { padding: 40px 16px 30px !important; }
+			.section { padding: 30px 16px !important; }
+			.section-title { font-size: 1.4em !important; }
+			.card-grid { grid-template-columns: repeat(1, 1fr) !important; }
+			.pipe { flex-direction: column !important; }
+			.pipe-step { min-width: unset !important; }
+			.arch-box { font-size: 0.55em !important; padding: 12px 14px !important; }
+			.code-block { font-size: 0.72em !important; padding: 14px 16px !important; }
+			.module-table { font-size: 0.78em !important; }
+			.module-table th, .module-table td { padding: 6px 8px !important; white-space: nowrap !important; }
+		}
+		@media (min-width: 769px) and (max-width: 1024px) {
+			.card-grid { grid-template-columns: repeat(2, 1fr) !important; }
+		}
+	</style>
 </head>
 
 <body>
